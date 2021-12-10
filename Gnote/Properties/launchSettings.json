@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Gnote (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Gnote (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
