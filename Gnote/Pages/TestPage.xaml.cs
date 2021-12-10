@@ -28,10 +28,17 @@ namespace Gnote.Pages
             this.InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_win32(object sender, RoutedEventArgs e)
         {
             var hwnd = PInvoke.User32.GetActiveWindow();
             PInvoke.User32.MessageBox(hwnd,"内容","测试按钮",PInvoke.User32.MessageBoxOptions.MB_OK);
+        }
+
+        private void Button_Click_setting(object sender, RoutedEventArgs e)
+        {
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            var notePath = localSettings.Values["NotePath"] as string;
+            textBlock.Text = notePath;
         }
     }
 }

@@ -2,13 +2,15 @@
     x:Class="Gnote.Pages.TestPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Gnote.Page"
+    xmlns:local="using:Gnote.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
-        <Button HorizontalAlignment="Center" HorizontalContentAlignment="Center" Content="测试功能" Click="Button_Click"></Button>
-    </Grid>
+    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+        <Button Content="测试win32-api弹窗" Click="Button_Click_win32"/>
+        <Button Content="获取应用配置的信息" Click="Button_Click_setting"/>
+        <TextBlock x:Name="textBlock" Text="内容信息"/>
+    </StackPanel>
 </Page>

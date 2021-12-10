@@ -17,6 +17,7 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -35,6 +36,7 @@ namespace Gnote
         public App()
         {
             this.InitializeComponent();
+            this.InitCheck();
         }
 
         /// <summary>
@@ -50,6 +52,19 @@ namespace Gnote
             //IOC
             Ioc.Default.ConfigureServices( new ServiceCollection()
                                                             .BuildServiceProvider());
+        }
+
+        /// <summary>
+        /// 应用初始化检查
+        /// </summary>
+        protected void InitCheck()
+        {
+            // 设置默认的笔记路径
+            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            if (!localSettings.Values.ContainsKey("NotePath"))
+            {
+                localSettings.Values["NotePath"] = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+ System.IO.Path.DirectorySeparatorChar + "GNote" + System.IO.Path.DirectorySeparatorChar + "notes";
+            }
         }
 
         private Window m_window;
