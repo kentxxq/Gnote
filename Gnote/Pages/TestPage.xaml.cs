@@ -30,7 +30,8 @@ namespace Gnote.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("123");
+            var hwnd = PInvoke.User32.GetActiveWindow();
+            PInvoke.User32.MessageBox(hwnd,"内容","测试按钮",PInvoke.User32.MessageBoxOptions.MB_OK);
         }
     }
 }
