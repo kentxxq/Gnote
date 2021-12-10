@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Gnote.Pages;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -26,11 +27,22 @@ namespace Gnote
         public MainWindow()
         {
             this.InitializeComponent();
+            Nav.SelectedItem = Nav.MenuItems.OfType<NavigationViewItem>().FirstOrDefault();
         }
 
-        private void myButton_Click(object sender, RoutedEventArgs e)
+        private void Nav_SelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
         {
-            myButton.Content = "Clicked";
+            if (args.IsSettingsSelected)
+            {
+                NavContentFrame.Navigate(typeof(SettingPage));
+            }
+            else
+            {
+                var selectedItem = (NavigationViewItem)args.SelectedItem;
+                var selectedItemTag = selectedItem.Tag;
+                var pageType = Type.GetType($"Gnote.Pages.{selectedItemTag}");
+                NavContentFrame.Navigate(pageType);
+            }
         }
     }
 }

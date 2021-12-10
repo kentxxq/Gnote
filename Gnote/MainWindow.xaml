@@ -7,7 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-    </StackPanel>
+    <Grid>
+        <NavigationView x:Name="Nav"
+                        Grid.Column="0" 
+                        IsBackButtonVisible="Collapsed" 
+                        PaneDisplayMode="LeftCompact" 
+                        IsPaneToggleButtonVisible="False"
+                        SelectionChanged="Nav_SelectionChanged">
+            <NavigationView.MenuItems>
+                <NavigationViewItem Tag="NotePage" Content="笔记"/>
+                <NavigationViewItem Tag="TestPage" Content="测试"/>
+            </NavigationView.MenuItems>
+            <ScrollViewer>
+                <Frame x:Name="NavContentFrame"></Frame>
+            </ScrollViewer>
+        </NavigationView>
+    </Grid>
 </Window>
