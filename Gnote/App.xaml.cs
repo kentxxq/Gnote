@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -44,6 +46,10 @@ namespace Gnote
         {
             m_window = new MainWindow();
             m_window.Activate();
+
+            //IOC
+            Ioc.Default.ConfigureServices( new ServiceCollection()
+                                                            .BuildServiceProvider());
         }
 
         private Window m_window;
