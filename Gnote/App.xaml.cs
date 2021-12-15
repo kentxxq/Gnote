@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using CommunityToolkit.Mvvm.DependencyInjection;
+using Gnote.Interfaces;
+using Gnote.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -36,7 +38,10 @@ namespace Gnote
         public App()
         {
             this.InitializeComponent();
-            this.InitCheck();
+            //IOC
+            Ioc.Default.ConfigureServices(new ServiceCollection()
+                                                            .AddSingleton<IStore,StoreService>()
+                                                            .BuildServiceProvider());
         }
 
         /// <summary>
@@ -46,12 +51,10 @@ namespace Gnote
         /// <param name="args">Details about the launch request and process.</param>
         protected override void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs args)
         {
+            InitCheck();
+            
             m_window = new MainWindow();
             m_window.Activate();
-
-            //IOC
-            Ioc.Default.ConfigureServices( new ServiceCollection()
-                                                            .BuildServiceProvider());
         }
 
         /// <summary>
@@ -59,11 +62,11 @@ namespace Gnote
         /// </summary>
         protected void InitCheck()
         {
-            // 设置默认的笔记路径
-            ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            if (!localSettings.Values.ContainsKey("NotePath"))
-            {
-                localSettings.Values["NotePath"] = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)+ System.IO.Path.DirectorySeparatorChar + "GNote" + System.IO.Path.DirectorySeparatorChar + "notes";
+            var store = Ioc.Default.GetRequiredService<IStore>();
+            // 创建目录
+            if (!Directory.Exists(store.GetDataPath())) { 
+                Directory.CreateDirectory(store.GetNotePath());
+                ApplicationData.Current.LocalSettings.Values["DataPath"] = store.GetDataPath();
             }
         }
 

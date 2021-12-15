@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using Gnote.Interfaces;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -36,9 +38,8 @@ namespace Gnote.Pages
 
         private void Button_Click_setting(object sender, RoutedEventArgs e)
         {
-            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-            var notePath = localSettings.Values["NotePath"] as string;
-            textBlock.Text = notePath;
+            var store = Ioc.Default.GetRequiredService<IStore>();
+            textBlock.Text=store.GetNotePath();
         }
     }
 }
