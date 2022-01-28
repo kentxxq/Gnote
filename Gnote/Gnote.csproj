@@ -12,6 +12,7 @@
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Controls\Explorer.xaml" />
     <None Remove="Pages\NotePage.xaml" />
     <None Remove="Pages\SettingPage.xaml" />
     <None Remove="Pages\TestPage.xaml" />
@@ -43,9 +44,6 @@
     <ProjectCapability Include="Msix" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Update="Pages\SettingPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -57,6 +55,14 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Page\TestPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Controls\Explorer.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

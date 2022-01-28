@@ -6,9 +6,76 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:cc="using:Gnote.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    
+    <Page.Resources>
+        <DataTemplate x:Key="FolderTemplate"
+                      x:DataType="local:ExplorerItem">
+            <TreeViewItem AutomationProperties.Name="{x:Bind Name}"
+                ItemsSource="{x:Bind Children}" IsExpanded="True">
 
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20" Source="../Assets/folder.png"/>
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FileTemplate"
+                      x:DataType="local:ExplorerItem">
+            <TreeViewItem AutomationProperties.Name="{x:Bind Name}">
+
+                <StackPanel Orientation="Horizontal">
+                    <Image Width="20" Source="../Assets/file.png"/>
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name}"/>
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <local:ExplorerItemTemplateSelector 
+            x:Key="ExplorerItemTemplateSelector"
+            FolderTemplate="{StaticResource FolderTemplate}"
+            FileTemplate="{StaticResource FileTemplate}" />
+    </Page.Resources>
+    
+    
+    
     <Grid>
-        <TextBlock Text="笔记页面"></TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <StackPanel Grid.Column="0" BorderThickness="1" BorderBrush="#dfe2e5" CornerRadius="4">
+            <cc:Explorer/>
+
+            <!--<TreeView ItemsSource="{x:Bind _notePageModel}"
+                      ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}"/>-->
+            
+            
+            
+            <TreeView VerticalAlignment="Bottom">
+                <TreeView.RootNodes>
+                    <TreeViewNode Content="标签"
+                              IsExpanded="True">
+                        <TreeViewNode.Children>
+                            <TreeViewNode Content="java"/>
+                            <TreeViewNode Content="python"/>
+                        </TreeViewNode.Children>
+                    </TreeViewNode>
+                </TreeView.RootNodes>
+            </TreeView>
+        </StackPanel>
+        
+        
+
+        <TextBlock Grid.Column="1" Text="文本"></TextBlock>
+
+        <TextBlock Grid.Column="2" Text="效果"></TextBlock>
     </Grid>
 </Page>
